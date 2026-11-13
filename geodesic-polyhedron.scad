@@ -76,7 +76,9 @@ module octsphere(r = -1, d = -1, hemisphere = false) {
 function octsphere(r = -1, d = -1, hemisphere = false) =
   let (
     rad = r > 0 ? r : d > 0 ? d / 2 : 1, // Default radius = 1
-    fn = $fn,
+    // Equator sides: $fn if set, otherwise $fa and $fs, by the rule
+    // OpenSCAD's own sphere() uses; at least 4, the octahedron's equator.
+    fn = max(4, $fn > 0 ? $fn : ceil(max(min(360 / $fa, rad * 2 * PI / $fs), 5))),
     log2 = log(2.0),
     pn = (log(fn) - log(4)) / log2,
     dpn = [abs(4 * 2 ^ floor(pn) - fn), abs(4 * 2 ^ ceil(pn) - fn)],
