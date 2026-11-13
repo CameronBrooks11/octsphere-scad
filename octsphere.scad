@@ -37,17 +37,15 @@
  * For more hemisphere flexibility, see: [Geodesic Hemisphere](https://www.printables.com/model/129119)
  *
  * ## References and Acknowledgements
- * - Printables: https://www.printables.com/model/762498
- * - Thingiverse (octsphere): https://www.thingiverse.com/thing:6481347
+ * - Octsphere by Amatulic, CC0 (public domain): https://www.thingiverse.com/thing:6481347
+ *   and https://www.printables.com/model/762498
+ * - Geodesic Sphere by Jamie Kawabata (Jamie_K), CC0, which it builds on:
+ *   https://www.thingiverse.com/thing:1484333
  * - Geodesic Hemisphere: https://www.printables.com/model/129119
- * - Original Geodesic Sphere (by Jamie Kawabata): https://www.thingiverse.com/thing:1484333
+ *
+ * Changes in this copy (Cameron Brooks): resolution falls back on $fa and $fs
+ * when $fn isn't set; the demo moved to examples/compare.scad.
  */
-
-//=== Demo ===
-
-$fn = 64;
-translate([20, 0, 0]) color("pink") sphere(20); // normal sphere for comparison
-translate([-20, 0, 0]) color("lightgreen") octsphere(20); // geodesic sphere
 
 //=== Module: octahedral sphere or hemisphere ===
 
@@ -76,7 +74,9 @@ module octsphere(r = -1, d = -1, hemisphere = false) {
 function octsphere(r = -1, d = -1, hemisphere = false) =
   let (
     rad = r > 0 ? r : d > 0 ? d / 2 : 1, // Default radius = 1
-    fn = $fn,
+    // Equator sides: $fn if set, otherwise $fa and $fs, by the rule
+    // OpenSCAD's own sphere() uses; at least 4, the octahedron's equator.
+    fn = max(4, $fn > 0 ? $fn : ceil(max(min(360 / $fa, rad * 2 * PI / $fs), 5))),
     log2 = log(2.0),
     pn = (log(fn) - log(4)) / log2,
     dpn = [abs(4 * 2 ^ floor(pn) - fn), abs(4 * 2 ^ ceil(pn) - fn)],
