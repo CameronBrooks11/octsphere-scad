@@ -37,17 +37,15 @@
  * For more hemisphere flexibility, see: [Geodesic Hemisphere](https://www.printables.com/model/129119)
  *
  * ## References and Acknowledgements
- * - Printables: https://www.printables.com/model/762498
- * - Thingiverse (octsphere): https://www.thingiverse.com/thing:6481347
+ * - Octsphere by Amatulic, CC0 (public domain): https://www.thingiverse.com/thing:6481347
+ *   and https://www.printables.com/model/762498
+ * - Geodesic Sphere by Jamie Kawabata (Jamie_K), CC0, which it builds on:
+ *   https://www.thingiverse.com/thing:1484333
  * - Geodesic Hemisphere: https://www.printables.com/model/129119
- * - Original Geodesic Sphere (by Jamie Kawabata): https://www.thingiverse.com/thing:1484333
+ *
+ * Changes in this copy (Cameron Brooks): resolution falls back on $fa and $fs
+ * when $fn isn't set; the demo moved to examples/compare.scad.
  */
-
-//=== Demo ===
-
-$fn = 64;
-translate([20, 0, 0]) color("pink") sphere(20); // normal sphere for comparison
-translate([-20, 0, 0]) color("lightgreen") octsphere(20); // geodesic sphere
 
 //=== Module: octahedral sphere or hemisphere ===
 
