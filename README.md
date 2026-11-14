@@ -57,5 +57,5 @@ picture above.
 on Jamie Kawabata's
 [Geodesic Sphere for OpenSCAD](https://www.thingiverse.com/thing:1484333).
 Both are public domain under CC0. This copy adds the `$fa`/`$fs` fallback, so
-it works without `$fn` set, plus the example and checks. The repository is
-under the GNU AGPL-3.0; see [LICENSE](LICENSE).
+it works without `$fn` set, plus the example and checks. MIT; see
+[LICENSE](LICENSE).
