@@ -39,7 +39,10 @@ octahedron. A sphere with an equator of 4 × 2ⁿ sides has 8 × 4ⁿ triangles.
 | `$fn = 3` or `4` | 4 | 8 |
 
 `examples/compare.scad` draws a hemisphere, an octsphere and OpenSCAD's
-`sphere()` side by side, as in the picture.
+`sphere()` side by side, as in the picture. `examples/capsule.scad` caps a cylinder
+with octsphere hemispheres, which meet it edge to edge, beside the same
+capsule capped with `sphere()`, whose widest ring falls short of the
+cylinder's radius: 9.81 of 10 mm at 16 sides.
 
 ## Checks
 

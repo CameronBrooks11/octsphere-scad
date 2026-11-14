@@ -1,8 +1,12 @@
-// octsphere() beside OpenSCAD's sphere() at the same resolution, and an
-// octsphere hemisphere.
+// A hemisphere, an octsphere and OpenSCAD's sphere(), side by side at one resolution.
+// Left to right: octsphere(hemisphere = true), octsphere(), sphere().
+
 use <../octsphere.scad>;
 
-$fn = 64;
+// Sides around each equator; octsphere snaps to 4, 8, 16, 32, 64 or 128
+sides = 16; // [4, 8, 16, 32, 64, 128]
+
+$fn = sides;
 
 translate([45, 0, 0]) color("pink") sphere(20);
 color("lightgreen") octsphere(20);
