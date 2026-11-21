@@ -80,7 +80,6 @@ function octsphere(r = -1, d = -1, hemisphere = false) =
         log2 = log(2.0),
         pn = (log(fn) - log(4)) / log2,
         dpn = [abs(4 * 2 ^ floor(pn) - fn), abs(4 * 2 ^ ceil(pn) - fn)],
-        minidx = floor(argmin(dpn) / 2),
         levels = floor(pn) + (argmin(dpn) % 2),
         nlv = 4 * 2 ^ levels,
         octahedron = [
