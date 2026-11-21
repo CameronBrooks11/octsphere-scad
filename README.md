@@ -49,8 +49,12 @@ cylinder's radius: 9.81 of 10 mm at 16 sides.
 `just test` takes under a second on OpenSCAD 2026.10.15. It renders seven
 cases, from the defaults to a fine `$fa`/`$fs`, a diameter, a hemisphere and
 no size at all. It checks each for one closed piece, its size, its triangle
-count and that every vertex lies on the sphere. `just images` renders the
-picture above.
+count and that every vertex lies on the sphere, and fails on any error or
+warning OpenSCAD prints.
+
+`just check` checks the `.scad` files are formatted with
+[topiary](https://github.com/tweag/topiary) 0.8.0; `just fmt` formats them.
+`just images` renders the picture above.
 
 ## Origin and licence
 

@@ -10,4 +10,4 @@ $fn = sides;
 
 translate([45, 0, 0]) color("pink") sphere(20);
 color("lightgreen") octsphere(20);
-translate([-45, 0, 0]) color("lightblue") octsphere(20, hemisphere = true);
+translate([-45, 0, 0]) color("lightblue") octsphere(20, hemisphere=true);

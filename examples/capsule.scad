@@ -15,14 +15,14 @@ $fn = sides;
 
 // Left: octsphere caps.
 translate([-radius * 1.5, 0, 0]) color("lightgreen") {
-  cylinder(r = radius, h = length);
-  translate([0, 0, length]) octsphere(radius, hemisphere = true);
-  mirror([0, 0, 1]) octsphere(radius, hemisphere = true);
-}
+        cylinder(r=radius, h=length);
+        translate([0, 0, length]) octsphere(radius, hemisphere=true);
+        mirror([0, 0, 1]) octsphere(radius, hemisphere=true);
+    }
 
 // Right: sphere() caps.
 translate([radius * 1.5, 0, 0]) color("pink") {
-  cylinder(r = radius, h = length);
-  translate([0, 0, length]) sphere(radius);
-  sphere(radius);
-}
+        cylinder(r=radius, h=length);
+        translate([0, 0, length]) sphere(radius);
+        sphere(radius);
+    }

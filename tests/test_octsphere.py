@@ -69,8 +69,9 @@ def main():
                 f.write(f"use <{LIB}>;\n{body}\n")
             result = subprocess.run([openscad, "--hardwarnings", "--export-format", "binstl", "-o", stl, scad],
                                     capture_output=True, text=True)
-            if result.returncode != 0:
-                errors = [l for l in result.stderr.splitlines() if "WARNING" in l or "ERROR" in l]
+            # A failed assert leaves the exit status at 0, so the output decides too.
+            errors = [l for l in result.stderr.splitlines() if l.startswith(("ERROR", "WARNING"))]
+            if result.returncode != 0 or errors:
                 failures.append(label)
                 print(f"FAIL {label}: openscad exited {result.returncode}: {'; '.join(errors)}")
                 continue
