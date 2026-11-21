@@ -57,8 +57,8 @@
  * @param hemisphere If true, generates only the upper hemisphere
  */
 module octsphere(r = -1, d = -1, hemisphere = false) {
-  mesh = octsphere(r, d, hemisphere);
-  polyhedron(points=mesh[0], faces=mesh[1]);
+    mesh = octsphere(r, d, hemisphere);
+    polyhedron(points=mesh[0], faces=mesh[1]);
 }
 
 //=== Function: octahedral geodesic sphere or hemisphere ===
@@ -72,48 +72,48 @@ module octsphere(r = -1, d = -1, hemisphere = false) {
  * @return Array: [vertex list, face list]
  */
 function octsphere(r = -1, d = -1, hemisphere = false) =
-  let (
-    rad = r > 0 ? r : d > 0 ? d / 2 : 1, // Default radius = 1
-    // Equator sides: $fn if set, otherwise $fa and $fs, by the rule
-    // OpenSCAD's own sphere() uses; at least 4, the octahedron's equator.
-    fn = max(4, $fn > 0 ? $fn : ceil(max(min(360 / $fa, rad * 2 * PI / $fs), 5))),
-    log2 = log(2.0),
-    pn = (log(fn) - log(4)) / log2,
-    dpn = [abs(4 * 2 ^ floor(pn) - fn), abs(4 * 2 ^ ceil(pn) - fn)],
-    minidx = floor(argmin(dpn) / 2),
-    levels = floor(pn) + (argmin(dpn) % 2),
-    nlv = 4 * 2 ^ levels,
-    octahedron = [
-      [
-        [0, 0, 1],
-        [0, 1, 0],
-        [0, -1, 0],
-        [1, 0, 0],
-        [-1, 0, 0],
-        if (!hemisphere) [0, 0, -1],
-      ],
-      hemisphere ? [[0, 1, 3], [0, 3, 2], [0, 2, 4], [0, 4, 1]]
-      : [
-        [0, 1, 3],
-        [0, 3, 2],
-        [0, 2, 4],
-        [0, 4, 1],
-        [5, 3, 1],
-        [5, 2, 3],
-        [5, 4, 2],
-        [5, 1, 4],
-      ],
-    ],
-    subdivided = multi_subdiv_pf(octahedron, levels),
-    vertices = hemisphere ? concat(
-        subdivided[0], [
-          for (n = [0:nlv]) let (t = n * 360 / nlv) [cos(t), sin(t), 0],
-        ]
-      )
-    : subdivided[0],
-    faces = hemisphere ? let (pstart = len(vertices) - nlv) concat(subdivided[1], [[for (n = [0:nlv - 1]) pstart + n]])
-    : subdivided[1]
-  ) [rad * vertices, faces];
+    let (
+        rad = r > 0 ? r : d > 0 ? d / 2 : 1, // Default radius = 1
+        // Equator sides: $fn if set, otherwise $fa and $fs, by the rule
+        // OpenSCAD's own sphere() uses; at least 4, the octahedron's equator.
+        fn = max(4, $fn > 0 ? $fn : ceil(max(min(360 / $fa, rad * 2 * PI / $fs), 5))),
+        log2 = log(2.0),
+        pn = (log(fn) - log(4)) / log2,
+        dpn = [abs(4 * 2 ^ floor(pn) - fn), abs(4 * 2 ^ ceil(pn) - fn)],
+        minidx = floor(argmin(dpn) / 2),
+        levels = floor(pn) + (argmin(dpn) % 2),
+        nlv = 4 * 2 ^ levels,
+        octahedron = [
+            [
+                [0, 0, 1],
+                [0, 1, 0],
+                [0, -1, 0],
+                [1, 0, 0],
+                [-1, 0, 0],
+                if (!hemisphere) [0, 0, -1],
+            ],
+            hemisphere ? [[0, 1, 3], [0, 3, 2], [0, 2, 4], [0, 4, 1]]
+            : [
+                [0, 1, 3],
+                [0, 3, 2],
+                [0, 2, 4],
+                [0, 4, 1],
+                [5, 3, 1],
+                [5, 2, 3],
+                [5, 4, 2],
+                [5, 1, 4],
+            ],
+        ],
+        subdivided = multi_subdiv_pf(octahedron, levels),
+        vertices = hemisphere ? concat(
+                subdivided[0], [
+                    for (n = [0:nlv]) let (t = n * 360 / nlv) [cos(t), sin(t), 0],
+                ]
+            )
+        : subdivided[0],
+        faces = hemisphere ? let (pstart = len(vertices) - nlv) concat(subdivided[1], [[for (n = [0:nlv - 1]) pstart + n]])
+        : subdivided[1]
+    ) [rad * vertices, faces];
 
 //=== Support Functions ===
 
@@ -124,9 +124,9 @@ function octsphere(r = -1, d = -1, hemisphere = false) =
  * @return Integer index of smallest value
  */
 function argmin(v, k = 0, mem = [-1, ceil(1 / 0)]) =
-  (k == len(v)) ? mem[0]
-  : v[k] < mem[1] ? argmin(v, k + 1, [k, v[k]])
-  : argmin(v, k + 1, mem);
+    (k == len(v)) ? mem[0]
+    : v[k] < mem[1] ? argmin(v, k + 1, [k, v[k]])
+    : argmin(v, k + 1, mem);
 
 /**
  * @function midpt
@@ -136,7 +136,7 @@ function argmin(v, k = 0, mem = [-1, ceil(1 / 0)]) =
  * @return Midpoint vector normalized to length 1
  */
 function midpt(p1, p2) =
-  let (mid = 0.5 * (p1 + p2)) mid / norm(mid);
+    let (mid = 0.5 * (p1 + p2)) mid / norm(mid);
 
 /**
  * @function subdivpf
@@ -145,21 +145,21 @@ function midpt(p1, p2) =
  * @return Subdivided [points, faces]
  */
 function subdivpf(pf) =
-  let (p = pf[0], faces = pf[1]) [
-      [
-        // new points
-        for (f = faces) let (p0 = p[f[0]], p1 = p[f[1]], p2 = p[f[2]]) each [p0, p1, p2, midpt(p0, p1), midpt(p1, p2), midpt(p0, p2)],
-      ],
-      [
-        // new faces
-        for (i = [0:len(faces) - 1]) let (base = 6 * i) each [
-          [base, base + 3, base + 5],
-          [base + 3, base + 1, base + 4],
-          [base + 5, base + 4, base + 2],
-          [base + 3, base + 4, base + 5],
-        ],
-      ],
-  ];
+    let (p = pf[0], faces = pf[1]) [
+            [
+                // new points
+                for (f = faces) let (p0 = p[f[0]], p1 = p[f[1]], p2 = p[f[2]]) each [p0, p1, p2, midpt(p0, p1), midpt(p1, p2), midpt(p0, p2)],
+            ],
+            [
+                // new faces
+                for (i = [0:len(faces) - 1]) let (base = 6 * i) each [
+                    [base, base + 3, base + 5],
+                    [base + 3, base + 1, base + 4],
+                    [base + 5, base + 4, base + 2],
+                    [base + 3, base + 4, base + 5],
+                ],
+            ],
+    ];
 
 /**
  * @function multi_subdiv_pf
@@ -169,5 +169,5 @@ function subdivpf(pf) =
  * @return Refined [points, faces]
  */
 function multi_subdiv_pf(pf, levels) =
-  (levels == 0) ? pf
-  : multi_subdiv_pf(subdivpf(pf), levels - 1);
+    (levels == 0) ? pf
+    : multi_subdiv_pf(subdivpf(pf), levels - 1);
